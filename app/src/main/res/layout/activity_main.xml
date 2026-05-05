@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <!-- FIRST SCREEN -->
-    <ScrollView
-        android:id="@+id/homeScreen"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
+        <!-- FIRST SCREEN -->
         <LinearLayout
+            android:id="@+id/homeScreen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="RFID Stock Box Scanner"
+                android:text="RFID Stock Box"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:paddingBottom="16dp" />
@@ -28,7 +29,7 @@
                 android:id="@+id/tvConnectedDevice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Connected Reader: Not connected"
+                android:text="Connected Device: Not connected"
                 android:textSize="17sp"
                 android:textStyle="bold"
                 android:paddingBottom="12dp" />
@@ -48,7 +49,7 @@
                     android:text="Connect Reader" />
 
                 <Button
-                    android:id="@+id/btnStopConnectReader"
+                    android:id="@+id/btnDisconnectReader"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -56,46 +57,40 @@
                     android:text="Stop Connect" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Search Stock Box"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:paddingBottom="6dp" />
-
             <EditText
-                android:id="@+id/etSearchBox"
+                android:id="@+id/etSearchStockBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Type stock box name..."
+                android:hint="Search stock box"
                 android:singleLine="true"
                 android:padding="12dp"
+                android:background="@android:drawable/edit_text"
                 android:layout_marginBottom="8dp" />
 
             <Button
-                android:id="@+id/btnLoadStockBoxes"
+                android:id="@+id/btnStartScanPage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Stock Box List"
-                android:layout_marginBottom="8dp" />
+                android:text="Start Scan"
+                android:enabled="false"
+                android:layout_marginBottom="12dp" />
 
             <TextView
                 android:id="@+id/tvSelectedStockBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Selected Stock Box: None"
-                android:textSize="16sp"
                 android:textStyle="bold"
-                android:paddingBottom="8dp" />
+                android:textSize="16sp"
+                android:paddingBottom="10dp" />
 
-            <Button
-                android:id="@+id/btnStartScanScreen"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Start Scan"
-                android:enabled="false"
-                android:layout_marginBottom="12dp" />
+                android:text="Stock Box List"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:paddingBottom="8dp" />
 
             <LinearLayout
                 android:id="@+id/stockBoxResultContainer"
@@ -104,37 +99,23 @@
                 android:orientation="vertical" />
 
         </LinearLayout>
-    </ScrollView>
 
-    <!-- SECOND SCREEN -->
-    <ScrollView
-        android:id="@+id/scanScreen"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:visibility="gone">
-
+        <!-- SECOND SCREEN -->
         <LinearLayout
+            android:id="@+id/scanScreen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
-
-            <Button
-                android:id="@+id/btnBackHome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Back" />
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tvScanStockBoxName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Stock Box: -"
-                android:textSize="20sp"
+                android:textSize="21sp"
                 android:textStyle="bold"
-                android:paddingTop="12dp"
-                android:paddingBottom="8dp" />
+                android:paddingBottom="12dp" />
 
             <TextView
                 android:id="@+id/tvDbTotalCount"
@@ -154,22 +135,49 @@
                 android:textStyle="bold"
                 android:paddingBottom="12dp" />
 
+            <TextView
+                android:id="@+id/tvMatchedCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="✅ Matched: 0"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:paddingBottom="6dp" />
+
+            <TextView
+                android:id="@+id/tvMissingCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="❌ Missing: 0"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:paddingBottom="6dp" />
+
+            <TextView
+                android:id="@+id/tvExtraCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="❌ Extra: 0"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:paddingBottom="12dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="2"
-                android:layout_marginBottom="12dp">
+                android:layout_marginBottom="10dp">
 
                 <Button
-                    android:id="@+id/btnStartRead"
+                    android:id="@+id/btnStartReadTags"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Start Read" />
 
                 <Button
-                    android:id="@+id/btnStopRead"
+                    android:id="@+id/btnStopReadTags"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -182,7 +190,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Clear EPC List"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="10dp" />
+
+            <Button
+                android:id="@+id/btnBackHome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Back"
+                android:layout_marginBottom="16dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -202,6 +217,6 @@
                 android:background="#EEEEEE" />
 
         </LinearLayout>
-    </ScrollView>
 
-</FrameLayout>
+    </LinearLayout>
+</ScrollView>
